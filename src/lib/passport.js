@@ -45,6 +45,19 @@ passport.use('local.signup', new LocalStrategy({
   return done(null, newUser);
 }));
 
+passport.use('local.update', new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true
+}, async (req, username, password, done) => {
+  const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+  if (rows.length > 0) {
+    const user = rows[0];
+    password = await helpers.encryptPassword(password);
+    const result = await pool.query('UPDATE users SET password = ? WHERE username = ? ', [password, username]);
+    return done(null, user);
+  }}));
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });

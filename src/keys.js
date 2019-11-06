@@ -1,7 +1,7 @@
 module.exports = {
     database: {
-        host: 'proyectfundaments.mysql.database.azure.com',
-        user: 'development@proyectfundaments',
+        host: 'fundamentosproyect.mysql.database.azure.com',
+        user: 'development@fundamentosproyect',
         password: 'Fundamentos123',
         database: 'fundamentos'
     }

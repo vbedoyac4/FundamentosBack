@@ -18,6 +18,14 @@ router.post('/signin', (req, res, next) => {
   })(req, res, next);
 });
 
+router.put('/update', (req, res, next) => {
+  passport.authenticate('local.update', {
+    successRedirect: '/updated',
+    failureRedirect: '/error',
+    failureFlash: true
+  })(req, res, next);
+});
+
 
 router.get('/profile', (req, res) => {
   console.log("Logueado");
@@ -30,4 +38,15 @@ router.get('/agregado', (req, res) => {
 router.get('/error', (req, res) => {
   console.log("Error ");
 });
+
+router.get('/updated', (req, res) => {
+  console.log("Updated ");
+});
+
+router.get('/logout', (req, res) => {
+  req.logOut();
+  res.redirect('signin');
+  console.log("Logged out");
+});
+
 module.exports = router;

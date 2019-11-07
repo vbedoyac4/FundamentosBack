@@ -27,7 +27,7 @@ router.put('/update', (req, res, next) => {
 });
 
 
-router.get('/profile', (req, res) => {
+router.get('/home/dashboard', (req, res) => {
   console.log("Logueado");
 });
 

@@ -32,12 +32,19 @@ passport.use('local.signup', new LocalStrategy({
   passReqToCallback: true
 }, async (req, username, password, done) => {
 
-  //const { fullname } = req.body;
+  const {nombre} = req.body;
+  const {apellido} = req.body;
+  const {email} = req.body;
+  const {idrol} = req.body;
   let newUser = {
-    //fullname,
     username,
-    password
+    password,
+    nombre,
+    apellido,
+    email,
+    idrol
   };
+  
   newUser.password = await helpers.encryptPassword(password);
   // Saving in the Database
   const result = await pool.query('INSERT INTO users SET ? ', newUser);

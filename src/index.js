@@ -50,7 +50,7 @@ app.use(require('./routes/index'));
 app.use(require('./routes/authentication'));
 app.use(require('./routes/roles'));
 app.use('/links', require('./routes/links'));
-
+app.use(require('./routes/detalles_user'));
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
 

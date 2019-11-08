@@ -35,14 +35,13 @@ passport.use('local.signup', new LocalStrategy({
   const {nombre} = req.body;
   const {apellido} = req.body;
   const {email} = req.body;
-  const {idrol} = req.body;
+
   let newUser = {
     username,
     password,
     nombre,
     apellido,
-    email,
-    idrol
+    email
   };
   
   newUser.password = await helpers.encryptPassword(password);

@@ -12,10 +12,10 @@ router.post('/signup', passport.authenticate('local.signup', {
 
 router.post('/signin', (req, res, next) => {
   passport.authenticate('local.signin', {
-    successRedirect: '/profile',
+    successRedirect: '/home/dashboard',
     failureRedirect: '/error',
-    failureFlash: true
-  })(req, res, next);
+    failureFlash: true,
+  }, )(req, res, next);  
 });
 
 router.put('/update', (req, res, next) => {
@@ -28,24 +28,35 @@ router.put('/update', (req, res, next) => {
 
 
 router.get('/home/dashboard', (req, res) => {
-  console.log("Logueado");
+  console.log("User Logueado");
+  res.sendStatus(200)
 });
 
 router.get('/agregado', (req, res) => {
-  console.log("Agregado");
+  console.log("User Agregado");
+  res.sendStatus(200)
+});
+
+router.get('/singup', (req, res) => {
+  console.log("User added");
+  res.sendStatus(200)
 });
 
 router.get('/error', (req, res) => {
-  console.log("Error ");
+  console.log("Error");
+  res.sendStatus(500)
 });
 
+
 router.get('/updated', (req, res) => {
-  console.log("Updated ");
+  console.log("Password Updated ");
+  res.sendStatus(200)
 });
 
 router.get('/logout', (req, res) => {
   req.logOut();
   res.redirect('signin');
+  res.sendStatus(200)
   console.log("Logged out");
 });
 

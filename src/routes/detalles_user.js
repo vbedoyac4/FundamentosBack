@@ -18,10 +18,9 @@ router.post('/add_detalle_user', (req, res) =>{
     pool.query(queryString, [idrol, id, id_user_modif], (err, results, fields) =>{
         if (err){
             console.log("Error, el detalle_user: "+ err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             return
         }
-
         console.log("Se agrego detalle_user con id: ", results.insertId);
         res.end() 
         
@@ -48,7 +47,6 @@ router.put('/edit_detalle_user/:id', (req, res) =>{
             res.sendStatus(400)
             return
         }
-
         console.log("Se edito detalle_user. con id: ", results.affectedRows);
         res.end() 
         
@@ -63,7 +61,7 @@ router.delete('/delete_detalle_user/:id', (req, res) => {
     pool.query(queryString, [iddetalle_user],(err, rows, fields) => {
         if(err){
             console.log("No existe el detalle_user " + err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             res.end()
             return
         }
@@ -82,7 +80,7 @@ router.get('/get_roles_user/:id', (req, res) => {
     pool.query(queryString, [id],(err, rows, fields) => {
         if(err){
             console.log("No existe el detalle_user " + err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             res.end()
             return
         }

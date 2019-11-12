@@ -51,6 +51,10 @@ app.use(require('./routes/authentication'));
 app.use(require('./routes/roles'));
 app.use('/links', require('./routes/links'));
 app.use(require('./routes/detalles_user'));
+app.use(require('./routes/alerta'));
+app.use(require('./routes/tipo_caso'));
+app.use(require('./routes/pasos_caso'));
+app.use(require('./routes/comentarios'));
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
 

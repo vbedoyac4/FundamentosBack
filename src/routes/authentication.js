@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const pool = require('../database');
 const passport = require('passport');
 const { isLoggedIn } = require('../lib/auth');
 
@@ -26,6 +26,40 @@ router.put('/update', (req, res, next) => {
   })(req, res, next);
 });
 
+
+router.get('/user/:id', (req, res) => {
+  console.log("Seleccionar user con id: "+ req.params.id)
+
+  const id= req.params.id
+
+  const queryString = "SELECT concat_ws(' ', nombre, apellido) as Nombre, username, email, estado  FROM users WHERE id = ?"
+  pool.query(queryString, [id],(err, rows, fields) => {
+      if(err){
+          console.log("No existe el user " + err)
+          res.json({ status: 500 })
+          res.end()
+          return
+      }
+      console.log("User Seleccionada")
+      res.json(rows)
+  })
+});
+
+router.get('/users', (req, res) => {
+  console.log("Seleccionar todos los users")
+
+  const queryString = "SELECT concat_ws(' ', nombre, apellido) as Nombre, username, email, estado  FROM users"
+  pool.query(queryString,(err, rows, fields) => {
+      if(err){
+          console.log("No hay users " + err)
+          res.json({ status: 500 })
+          res.end()
+          return
+      }
+      console.log("users Seleccionados")
+      res.json(rows)
+  })
+});
 
 router.get('/home/dashboard', (req, res) => {
   console.log("User Logueado");

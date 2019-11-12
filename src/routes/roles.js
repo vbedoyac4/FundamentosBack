@@ -7,16 +7,15 @@ router.post('/add_rol', (req, res) =>{
     console.log("Tratando de agregar rol..")
     console.log("Rol: " + req.body.rol)
 
-    const rol = req.body.rol
+    const rol = req.body.rol 
 
     const queryString = "INSERT INTO roles (rol)  VALUES  (?)"
     pool.query(queryString, [rol], (err, results, fields) =>{
         if (err){
             console.log("Error, el rol: "+ err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             return
         }
-
         console.log("Se agrego rol con id: ", results.insertId);
         res.end() 
         
@@ -37,10 +36,9 @@ router.put('/edit_rol/:id', (req, res) =>{
     pool.query(queryString, [rol, idroles], (err, results, fields) =>{
         if (err){
             console.log("Error al editar rol: "+ err)
-            res.sendStatus(400)
+            res.json({ status: 400 })
             return
         }
-
         console.log("Se edito rol con id: ", results.affectedRows);
         res.end() 
         
@@ -55,7 +53,7 @@ router.delete('/delete_rol/:id', (req, res) => {
     pool.query(queryString, [idroles],(err, rows, fields) => {
         if(err){
             console.log("No existe el rol " + err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             res.end()
             return
         }
@@ -72,7 +70,7 @@ router.get('/rol/:rol', (req, res) => {
     pool.query(queryString, [idroles],(err, rows, fields) => {
         if(err){
             console.log("No existe el rol " + err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             res.end()
             return
         }
@@ -88,7 +86,7 @@ router.get('/roles', (req, res) => {
     pool.query(queryString,(err, rows, fields) => {
         if(err){
             console.log("No hay roles " + err)
-            res.sendStatus(500)
+            res.json({ status: 500 })
             res.end()
             return
         }

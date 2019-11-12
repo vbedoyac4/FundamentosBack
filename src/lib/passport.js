@@ -32,39 +32,18 @@ passport.use('local.signup', new LocalStrategy({
   passReqToCallback: true
 }, async (req, username, password, done) => {
 
-  const {nombre} = req.body;
-  const {apellido} = req.body;
-  const {email} = req.body;
-  const {estado} = req.body;
-
+  //const { fullname } = req.body;
   let newUser = {
+    //fullname,
     username,
-    password,
-    nombre,
-    apellido,
-    email,
-    estado
+    password
   };
-  
   newUser.password = await helpers.encryptPassword(password);
   // Saving in the Database
   const result = await pool.query('INSERT INTO users SET ? ', newUser);
   newUser.id = result.insertId;
   return done(null, newUser);
 }));
-
-passport.use('local.update', new LocalStrategy({
-  usernameField: 'username',
-  passwordField: 'password',
-  passReqToCallback: true
-}, async (req, username, password, done) => {
-  const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-  if (rows.length > 0) {
-    const user = rows[0];
-    password = await helpers.encryptPassword(password);
-    const result = await pool.query('UPDATE users SET password = ? WHERE username = ? ', [password, username]);
-    return done(null, user);
-  }}));
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

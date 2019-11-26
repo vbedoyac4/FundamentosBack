@@ -21,14 +21,14 @@ app.set('port', process.env.PORT || 3000);
 
 // Middlewares
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: 'fundamentosproyect',
-  resave: false,
-  saveUninitialized: false,
-  store: new MySQLStore(database)
+    secret: 'fundamentosproyect',
+    resave: false,
+    saveUninitialized: false,
+    store: new MySQLStore(database)
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -39,10 +39,10 @@ app.options('*', cors());
 
 // Global variables
 app.use((req, res, next) => {
-  app.locals.message = req.flash('message');
-  app.locals.success = req.flash('success');
-  app.locals.user = req.user;
-  next();
+    app.locals.message = req.flash('message');
+    app.locals.success = req.flash('success');
+    app.locals.user = req.user;
+    next();
 });
 
 // Routes
@@ -55,10 +55,12 @@ app.use(require('./routes/alerta'));
 app.use(require('./routes/tipo_caso'));
 app.use(require('./routes/pasos_caso'));
 app.use(require('./routes/comentarios'));
+app.use(require('./routes/CarpetaDocumento'));
+app.use(require('./routes/casos'));
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Starting
 app.listen(app.get('port'), () => {
-  console.log('Server on port', app.get('port'));
+    console.log('Server on port', app.get('port'));
 });
